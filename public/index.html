@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link rel="stylesheet" href="/styles/styles.css" />
+  </head>
+  <body>
+    <h1>First server | MongoDB | Mongoose | RESTful API Demo</h1>
+    <ul id="cars"></ul>
+
+    <script>
+      const fetchCars = async () => {
+        try {
+          const response = await fetch("http://localhost:3000/api/v1/cars/");
+          if (!response.ok) throw response;
+          const data = await response.json();
+          console.log(
+            "🚀 ~ file: index.html ~ line 17 ~ fetchCars ~ data",
+            data
+          );
+          const element = document.getElementById("cars");
+          const frag = document.createDocumentFragment();
+
+          for (const car of data) {
+            const li = document.createElement("li");
+            li.textContent = car.name;
+            frag.appendChild(li);
+          }
+          element.appendChild(frag);
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      fetchCars();
+    </script>
+  </body>
+</html>
